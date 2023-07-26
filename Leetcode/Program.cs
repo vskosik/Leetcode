@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Leetcode
 {
@@ -9,7 +10,33 @@ namespace Leetcode
         {
             //Console.WriteLine(ConvertTime("02:30", "04:35"));
             //Console.WriteLine(CoinChange(new[] { 186, 419, 83, 408 }, 6249));
-            Console.WriteLine(ValidParentheses("]"));
+            //Console.WriteLine(ValidParentheses("]"));
+            //Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
+        }
+
+        private static int MaxProfit(int[] prices)
+        {
+            if (prices.Length == 0)
+            {
+                return 0;
+            }
+
+            var minPrice = prices[0];
+            var maxProfit = 0;
+
+            for (var i = 1; i < prices.Length; i++)
+            {
+                if (prices[i] < minPrice)
+                {
+                    minPrice = prices[i];
+                }
+                else if (prices[i] - minPrice > maxProfit)
+                {
+                    maxProfit = prices[i] - minPrice;
+                }
+            }
+
+            return maxProfit;
         }
 
         private static bool ValidParentheses(string s)
