@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Leetcode
 {
@@ -12,6 +13,22 @@ namespace Leetcode
             //Console.WriteLine(CoinChange(new[] { 186, 419, 83, 408 }, 6249));
             //Console.WriteLine(ValidParentheses("]"));
             //Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
+            Console.WriteLine(Reverse(-123));
+        }
+
+        private static int Reverse(int x)
+        {
+            long result = 0;
+            while (x != 0)
+            {
+                result = result * 10 + x % 10;
+                x /= 10;
+            }
+            if (result > int.MaxValue || result < int.MinValue)
+            {
+                return 0;
+            }
+            return (int)result;
         }
 
         private static int MaxProfit(int[] prices)
@@ -25,7 +42,6 @@ namespace Leetcode
             var maxProfit = 0;
 
             for (var i = 1; i < prices.Length; i++)
-            {
                 if (prices[i] < minPrice)
                 {
                     minPrice = prices[i];
@@ -34,7 +50,6 @@ namespace Leetcode
                 {
                     maxProfit = prices[i] - minPrice;
                 }
-            }
 
             return maxProfit;
         }
@@ -45,7 +60,6 @@ namespace Leetcode
             var brackets = new Dictionary<char, char> { { '(', ')' }, { '{', '}' }, { '[', ']' } };
 
             foreach (var symbol in s)
-            {
                 if (brackets.ContainsKey(symbol))
                 {
                     stack.Push(symbol);
@@ -57,7 +71,6 @@ namespace Leetcode
                         return false;
                     }
                 }
-            }
 
             return stack.Count == 0;
         }
