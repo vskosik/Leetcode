@@ -13,7 +13,36 @@ namespace Leetcode
             //Console.WriteLine(CoinChange(new[] { 186, 419, 83, 408 }, 6249));
             //Console.WriteLine(ValidParentheses("]"));
             //Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
-            Console.WriteLine(Reverse(-123));
+            //Console.WriteLine(Reverse(-123));
+            Console.WriteLine(MergeAlternately("abcd", "pq"));
+        }
+
+        private static string MergeAlternately(string word1, string word2)
+        {
+            var result = new StringBuilder(word1.Length + word2.Length);
+            for (int i = 0, j = 0, k = 0; i < result.Capacity; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    if (j >= word1.Length)
+                    {
+                        result.Append(word2[k..]);
+                        break;
+                    }
+                    result.Append(word1[j++]);
+                }
+                else
+                {
+                    if (k >= word2.Length)
+                    {
+                        result.Append(word1[j..]);
+                        break;
+                    }
+                    result.Append(word2[k++]);
+                }
+            }
+
+            return result.Replace(" ", "").ToString();
         }
 
         private static int Reverse(int x)
