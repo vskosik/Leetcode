@@ -9,12 +9,24 @@ namespace Leetcode
     {
         private static void Main()
         {
-            //Console.WriteLine(ConvertTime("02:30", "04:35"));
-            //Console.WriteLine(CoinChange(new[] { 186, 419, 83, 408 }, 6249));
-            //Console.WriteLine(ValidParentheses("]"));
-            //Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
-            //Console.WriteLine(Reverse(-123));
-            Console.WriteLine(MergeAlternately("abcd", "pq"));
+            // Console.WriteLine(ConvertTime("02:30", "04:35"));
+            // Console.WriteLine(CoinChange(new[] { 186, 419, 83, 408 }, 6249));
+            // Console.WriteLine(ValidParentheses("]"));
+            // Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
+            // Console.WriteLine(Reverse(-123));
+            // Console.WriteLine(MergeAlternately("abcd", "pq"));
+            Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
+        }
+
+        private static int Gcd(int a, int b)
+        {
+            return b == 0 ? a : Gcd(b, a % b);
+        }
+
+        private static string GcdOfStrings(string str1, string str2)
+        {
+            return str1 + str2 == str2 + str1 
+                ? str1[..Gcd(str1.Length, str2.Length)] : "";
         }
 
         private static string MergeAlternately(string word1, string word2)
@@ -29,6 +41,7 @@ namespace Leetcode
                         result.Append(word2[k..]);
                         break;
                     }
+
                     result.Append(word1[j++]);
                 }
                 else
@@ -38,6 +51,7 @@ namespace Leetcode
                         result.Append(word1[j..]);
                         break;
                     }
+
                     result.Append(word2[k++]);
                 }
             }
@@ -53,10 +67,12 @@ namespace Leetcode
                 result = result * 10 + x % 10;
                 x /= 10;
             }
+
             if (result > int.MaxValue || result < int.MinValue)
             {
                 return 0;
             }
+
             return (int)result;
         }
 
