@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Leetcode
@@ -16,8 +17,30 @@ namespace Leetcode
             // Console.WriteLine(Reverse(-123));
             // Console.WriteLine(MergeAlternately("abcd", "pq"));
             // Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
-            KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
+            // KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
+            Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
         }
+
+        private static bool CanPlaceFlowers(int[] flowerbed, int n)
+        {
+            for (var i = 0; i < flowerbed.Length && n > 0; i++)
+            {
+                if (flowerbed[i] == 1)
+                {
+                    continue;
+                }
+
+                if ((i == 0 || flowerbed[i - 1] == 0) && 
+                    (i == flowerbed.Length - 1 || flowerbed[i + 1] == 0))
+                {
+                    flowerbed[i] = 1;
+                    n--;
+                }
+            }
+
+            return n == 0;
+        }
+
 
         private static IEnumerable<bool> KidsWithCandies(int[] candies, int extraCandies)
         {
