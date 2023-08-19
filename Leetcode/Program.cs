@@ -15,7 +15,15 @@ namespace Leetcode
             // Console.WriteLine(MaxProfit(new[] { 7, 1, 5, 3, 6, 4 }));
             // Console.WriteLine(Reverse(-123));
             // Console.WriteLine(MergeAlternately("abcd", "pq"));
-            Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
+            // Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
+            KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
+        }
+
+        private static IEnumerable<bool> KidsWithCandies(int[] candies, int extraCandies)
+        {
+            var maxCandies = candies.Max();
+
+            return candies.Select(candy => candy + extraCandies >= maxCandies).ToList();
         }
 
         private static int Gcd(int a, int b)
@@ -25,8 +33,9 @@ namespace Leetcode
 
         private static string GcdOfStrings(string str1, string str2)
         {
-            return str1 + str2 == str2 + str1 
-                ? str1[..Gcd(str1.Length, str2.Length)] : "";
+            return str1 + str2 == str2 + str1
+                ? str1[..Gcd(str1.Length, str2.Length)]
+                : "";
         }
 
         private static string MergeAlternately(string word1, string word2)
