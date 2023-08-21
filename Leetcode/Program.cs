@@ -19,14 +19,20 @@ namespace Leetcode
             // Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
             // KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
-            Console.WriteLine(ReverseVowels("leetcode"));
+            // Console.WriteLine(ReverseVowels("leetcode"));
+            Console.WriteLine(ReverseWords("  hello world  "));
+        }
+
+        private static string ReverseWords(string s)
+        {
+            return string.Join(' ', s.Split(' ', StringSplitOptions.RemoveEmptyEntries).Reverse());
         }
 
         private static string ReverseVowels(string s)
         {
             var allVowels = new[] { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
             var vowels = new Stack<char>();
-            
+
             foreach (var symbol in s.Where(symbol => allVowels.Contains(symbol)))
             {
                 vowels.Push(symbol);
