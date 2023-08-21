@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Leetcode
 {
@@ -20,7 +21,30 @@ namespace Leetcode
             // KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
             // Console.WriteLine(ReverseVowels("leetcode"));
-            Console.WriteLine(ReverseWords("  hello world  "));
+            // Console.WriteLine(ReverseWords("  hello world  "));
+            ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
+        }
+
+        private static int[] ProductExceptSelf(int[] nums)
+        {
+            var product = new int[nums.Length];
+            int num = 1, i;
+
+            for (i = 0; i < nums.Length; i++)
+            {
+                product[i] = num;
+                num *= nums[i];
+            }
+
+            num = 1;
+
+            for (i = nums.Length - 1; i >= 0; i--)
+            {
+                product[i] *= num;
+                num *= nums[i];
+            }
+
+            return product;
         }
 
         private static string ReverseWords(string s)
