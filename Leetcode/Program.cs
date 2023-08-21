@@ -18,7 +18,30 @@ namespace Leetcode
             // Console.WriteLine(MergeAlternately("abcd", "pq"));
             // Console.WriteLine(GcdOfStrings("ABCABCABC", "ABCABC"));
             // KidsWithCandies(new[] { 2, 3, 5, 1, 3 }, 3).ToList().ForEach(Console.WriteLine);
-            Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
+            // Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
+            Console.WriteLine(ReverseVowels("leetcode"));
+        }
+
+        private static string ReverseVowels(string s)
+        {
+            var allVowels = new[] { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
+            var vowels = new Stack<char>();
+            
+            foreach (var symbol in s.Where(symbol => allVowels.Contains(symbol)))
+            {
+                vowels.Push(symbol);
+            }
+
+            var newString = new StringBuilder(s);
+            for (var i = 0; i < newString.Length; i++)
+            {
+                if (allVowels.Contains(newString[i]))
+                {
+                    newString[i] = vowels.Pop();
+                }
+            }
+
+            return newString.ToString();
         }
 
         private static bool CanPlaceFlowers(int[] flowerbed, int n)
@@ -30,7 +53,7 @@ namespace Leetcode
                     continue;
                 }
 
-                if ((i == 0 || flowerbed[i - 1] == 0) && 
+                if ((i == 0 || flowerbed[i - 1] == 0) &&
                     (i == flowerbed.Length - 1 || flowerbed[i + 1] == 0))
                 {
                     flowerbed[i] = 1;
@@ -40,7 +63,6 @@ namespace Leetcode
 
             return n == 0;
         }
-
 
         private static IEnumerable<bool> KidsWithCandies(int[] candies, int extraCandies)
         {
