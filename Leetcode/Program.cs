@@ -22,7 +22,37 @@ namespace Leetcode
             // Console.WriteLine(CanPlaceFlowers(new[] { 0, 0, 1, 0, 0 }, 1));
             // Console.WriteLine(ReverseVowels("leetcode"));
             // Console.WriteLine(ReverseWords("  hello world  "));
-            ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
+            // ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
+            Console.WriteLine(IncreasingTriplet(new[] { 1, 5, 0, 4, 1, 3 }));
+        }
+
+        private static bool IncreasingTriplet(int[] nums)
+        {
+            if (nums.Length < 3)
+            {
+                return false;
+            }
+
+            var smallest = int.MaxValue;
+            var secondSmallest = int.MaxValue;
+
+            foreach (var number in nums)
+            {
+                if (number <= smallest)
+                {
+                    smallest = number;
+                }
+                else if (number <= secondSmallest)
+                {
+                    secondSmallest = number;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static int[] ProductExceptSelf(int[] nums)
