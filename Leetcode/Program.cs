@@ -26,9 +26,24 @@ namespace Leetcode
             // ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(IncreasingTriplet(new[] { 1, 5, 0, 4, 1, 3 }));
             // Console.WriteLine(Compress(new[] { 'a', 'a', 'b', 'b', 'c', 'c', 'c' }));
-            var nums = new[] { 0, 1, 0, 3, 12 };
-            MoveZeroes(nums);
-            nums.ToList().ForEach(Console.WriteLine);
+            // var nums = new[] { 0, 1, 0, 3, 12 };
+            // MoveZeroes(nums);
+            // nums.ToList().ForEach(Console.WriteLine);
+            Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
+        }
+        
+        private static bool IsSubsequence(string s, string t)
+        {
+            var subStr = new StringBuilder(s);
+            for (var i = 0; i < t.Length && subStr.Length > 0; i++)
+            {
+                if (t[i] == subStr[0])
+                {
+                    subStr.Remove(0, 1);
+                }
+            }
+
+            return subStr.Length == 0;
         }
 
         private static void MoveZeroes(int[] nums)
