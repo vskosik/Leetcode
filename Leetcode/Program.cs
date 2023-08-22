@@ -23,7 +23,45 @@ namespace Leetcode
             // Console.WriteLine(ReverseVowels("leetcode"));
             // Console.WriteLine(ReverseWords("  hello world  "));
             // ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
-            Console.WriteLine(IncreasingTriplet(new[] { 1, 5, 0, 4, 1, 3 }));
+            // Console.WriteLine(IncreasingTriplet(new[] { 1, 5, 0, 4, 1, 3 }));
+            Console.WriteLine(Compress(new[] { 'a', 'a', 'b', 'b', 'c', 'c', 'c' }));
+        }
+
+        private static int Compress(char[] chars)
+        {
+            var count = 1;
+            var currentLetter = chars[0];
+            var compressedString = new StringBuilder();
+            
+            for (var i = 1; i < chars.Length; i++)
+            {
+                if (chars[i] == currentLetter)
+                {
+                    count++;
+                    continue;
+                }
+
+                compressedString.Append(currentLetter);
+                if (count > 1)
+                {
+                    compressedString.Append(count.ToString());
+                }
+                currentLetter = chars[i];
+                count = 1;
+            }
+
+            compressedString.Append(currentLetter);
+            if (count > 1)
+            {
+                compressedString.Append(count.ToString());
+            }
+
+            for (var i = 0; i < compressedString.Length; i++)
+            {
+                chars[i] = compressedString[i];
+            }
+
+            return compressedString.Length;
         }
 
         private static bool IncreasingTriplet(int[] nums)
