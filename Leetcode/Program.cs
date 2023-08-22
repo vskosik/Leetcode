@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
@@ -24,7 +25,27 @@ namespace Leetcode
             // Console.WriteLine(ReverseWords("  hello world  "));
             // ProductExceptSelf(new[] { 1, 2, 3, 4 }).ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(IncreasingTriplet(new[] { 1, 5, 0, 4, 1, 3 }));
-            Console.WriteLine(Compress(new[] { 'a', 'a', 'b', 'b', 'c', 'c', 'c' }));
+            // Console.WriteLine(Compress(new[] { 'a', 'a', 'b', 'b', 'c', 'c', 'c' }));
+            var nums = new[] { 0, 1, 0, 3, 12 };
+            MoveZeroes(nums);
+            nums.ToList().ForEach(Console.WriteLine);
+        }
+
+        private static void MoveZeroes(int[] nums)
+        {
+            var nonZeroCount = 0;
+            for (var i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 0)
+                {
+                    nums[nonZeroCount++] = nums[i];
+                }
+            }
+
+            for (var i = nonZeroCount; i < nums.Length; i++)
+            {
+                nums[i] = 0;
+            }
         }
 
         private static int Compress(char[] chars)
@@ -32,7 +53,7 @@ namespace Leetcode
             var count = 1;
             var currentLetter = chars[0];
             var compressedString = new StringBuilder();
-            
+
             for (var i = 1; i < chars.Length; i++)
             {
                 if (chars[i] == currentLetter)
@@ -46,6 +67,7 @@ namespace Leetcode
                 {
                     compressedString.Append(count.ToString());
                 }
+
                 currentLetter = chars[i];
                 count = 1;
             }
