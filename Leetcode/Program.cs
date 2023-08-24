@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
@@ -30,13 +31,39 @@ namespace Leetcode
             // MoveZeroes(nums);
             // nums.ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
-            Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
+            // Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
+            Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
+        }
+
+        private static int MaxOperations(int[] nums, int k)
+        {
+            var numCounts = new Dictionary<int, int>();
+            var operationCount = 0;
+
+            foreach (var num in nums)
+            {
+                if (numCounts.ContainsKey(k - num) && numCounts[k - num] > 0)
+                {
+                    operationCount++;
+                    numCounts[k - num]--;
+                }
+                else
+                {
+                    if (!numCounts.ContainsKey(num))
+                    {
+                        numCounts[num] = 0;
+                    }
+                    numCounts[num]++;
+                }
+            }
+
+            return operationCount;
         }
 
         private static int MaxArea(int[] height)
         {
             var maxVolume = 0;
-            
+
             for (int i = 0, j = height.Length - 1; i < j;)
             {
                 maxVolume = Math.Max(maxVolume, Math.Min(height[i], height[j]) * (j - i));
