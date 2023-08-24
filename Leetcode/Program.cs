@@ -29,9 +29,31 @@ namespace Leetcode
             // var nums = new[] { 0, 1, 0, 3, 12 };
             // MoveZeroes(nums);
             // nums.ToList().ForEach(Console.WriteLine);
-            Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
+            // Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
+            Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
         }
-        
+
+        private static int MaxArea(int[] height)
+        {
+            var maxVolume = 0;
+            
+            for (int i = 0, j = height.Length - 1; i < j;)
+            {
+                maxVolume = Math.Max(maxVolume, Math.Min(height[i], height[j]) * (j - i));
+
+                if (height[i] < height[j])
+                {
+                    i++;
+                }
+                else
+                {
+                    j--;
+                }
+            }
+
+            return maxVolume;
+        }
+
         private static bool IsSubsequence(string s, string t)
         {
             var subStr = new StringBuilder(s);
