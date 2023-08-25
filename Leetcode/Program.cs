@@ -32,7 +32,26 @@ namespace Leetcode
             // nums.ToList().ForEach(Console.WriteLine);
             // Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
             // Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
-            Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
+            // Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
+            Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
+        }
+
+        private static double FindMaxAverage(int[] nums, int k)
+        {
+            var sum = 0;
+            for (var i = 0; i < k; i++)
+            {
+                sum += nums[i];
+            }
+
+            double result = sum;
+            for (var i = k; i < nums.Length; i++)
+            {
+                sum += nums[i] - nums[i - k];
+                result = Math.Max(result, sum);
+            }
+
+            return result / k;
         }
 
         private static int MaxOperations(int[] nums, int k)
@@ -53,6 +72,7 @@ namespace Leetcode
                     {
                         numCounts[num] = 0;
                     }
+
                     numCounts[num]++;
                 }
             }
