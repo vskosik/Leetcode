@@ -33,7 +33,40 @@ namespace Leetcode
             // Console.WriteLine(IsSubsequence("abc", "ahbgdc"));
             // Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
             // Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
-            Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
+            // Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
+            Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
+        }
+
+        private static int MaxVowels(string s, int k)
+        {
+            var allVowels = new[] { 'a', 'e', 'i', 'o', 'u' };
+
+            var vowels = 0;
+            for (var i = 0; i < k; i++)
+            {
+                if (allVowels.Contains(s[i]))
+                {
+                    vowels++;
+                }
+            }
+
+            var maxVowels = vowels;
+            for (var i = k; i < s.Length; i++)
+            {
+                if (allVowels.Contains(s[i]))
+                {
+                    vowels++;
+                }
+
+                if (allVowels.Contains(s[i - k]))
+                {
+                    vowels--;
+                }
+
+                maxVowels = Math.Max(maxVowels, vowels);
+            }
+            
+            return maxVowels;
         }
 
         private static double FindMaxAverage(int[] nums, int k)
