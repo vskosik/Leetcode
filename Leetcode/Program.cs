@@ -34,7 +34,44 @@ namespace Leetcode
             // Console.WriteLine(MaxArea(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }));
             // Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
             // Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
-            Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
+            // Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
+            Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
+        }
+
+        private static int LongestOnes(int[] nums, int k)
+        {
+            var count = 0;
+            var maxCount = 0;
+            var zeroIndex = 0;
+
+            foreach (var num in nums)
+            {
+                if (num == 1)
+                {
+                    count++;
+                    continue;
+                }
+
+                if (k > 0)
+                {
+                    k--;
+                    count++;
+                    continue;
+                }
+
+                maxCount = Math.Max(maxCount, count);
+
+                for (; nums[zeroIndex] != 0; zeroIndex++)
+                {
+                    count--;
+                }
+
+                zeroIndex++;
+            }
+
+            maxCount = Math.Max(maxCount, count);
+
+            return maxCount;
         }
 
         private static int MaxVowels(string s, int k)
@@ -65,7 +102,7 @@ namespace Leetcode
 
                 maxVowels = Math.Max(maxVowels, vowels);
             }
-            
+
             return maxVowels;
         }
 
