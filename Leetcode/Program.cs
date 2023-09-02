@@ -35,7 +35,37 @@ namespace Leetcode
             // Console.WriteLine(MaxOperations(new[] { 3, 1, 3, 4, 3 }, 4));
             // Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
             // Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
-            Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
+            // Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
+            Console.WriteLine(LongestSubarray(new[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 }));
+        }
+
+        private static int LongestSubarray(int[] nums)
+        {
+            var maxCount = 0;
+            var zeros = 0;
+            var left = 0;
+
+            for (var right = 0; right < nums.Length; right++)
+            {
+                if (nums[right] == 0)
+                {
+                    zeros++;
+                }
+
+                while (zeros > 1)
+                {
+                    if (nums[left] == 0)
+                    {
+                        zeros--;
+                    }
+
+                    left++;
+                }
+
+                maxCount = Math.Max(maxCount, right - left);
+            }
+
+            return maxCount;
         }
 
         private static int LongestOnes(int[] nums, int k)
