@@ -37,14 +37,33 @@ namespace Leetcode
             // Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
             // Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
             // Console.WriteLine(LongestSubarray(new[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 }));
-            Console.WriteLine(LargestAltitude(new[] { -4, -3, -2, -1, 4, 3, 2 }));
+            // Console.WriteLine(LargestAltitude(new[] { -4, -3, -2, -1, 4, 3, 2 }));
+            Console.WriteLine(PivotIndex(new[] { -1, -1, 0, 1, 1, 0 }));
+        }
+
+        private static int PivotIndex(int[] nums)
+        {
+            var leftSum = 0;
+            var rightSum = nums[1..].Sum();
+            for (var pivotIndex = 0; pivotIndex < nums.Length; pivotIndex++)
+            {
+                if (leftSum == rightSum)
+                {
+                    return pivotIndex;
+                }
+
+                leftSum += nums[pivotIndex];
+                rightSum -= pivotIndex + 1 == nums.Length ? 0 : nums[pivotIndex + 1];
+            }
+
+            return -1;
         }
 
         private static int LargestAltitude(int[] gain)
         {
             var maxAltitude = 0;
             var altitude = 0;
-            
+
             foreach (var alt in gain)
             {
                 altitude += alt;
