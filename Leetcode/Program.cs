@@ -36,7 +36,22 @@ namespace Leetcode
             // Console.WriteLine(FindMaxAverage(new[] { 1, 12, -5, -6, 50, 3 }, 4));
             // Console.WriteLine(MaxVowels("ibpbhixfiouhdljnjfflpapptrxgcomvnb", 33));
             // Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
-            Console.WriteLine(LongestSubarray(new[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 }));
+            // Console.WriteLine(LongestSubarray(new[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 }));
+            Console.WriteLine(LargestAltitude(new[] { -4, -3, -2, -1, 4, 3, 2 }));
+        }
+
+        private static int LargestAltitude(int[] gain)
+        {
+            var maxAltitude = 0;
+            var altitude = 0;
+            
+            foreach (var alt in gain)
+            {
+                altitude += alt;
+                maxAltitude = Math.Max(maxAltitude, altitude);
+            }
+
+            return maxAltitude;
         }
 
         private static int LongestSubarray(int[] nums)
