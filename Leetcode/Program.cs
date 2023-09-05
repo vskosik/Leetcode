@@ -38,7 +38,28 @@ namespace Leetcode
             // Console.WriteLine(LongestOnes(new[] { 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 }, 2));
             // Console.WriteLine(LongestSubarray(new[] { 0, 1, 1, 1, 0, 1, 1, 0, 1 }));
             // Console.WriteLine(LargestAltitude(new[] { -4, -3, -2, -1, 4, 3, 2 }));
-            Console.WriteLine(PivotIndex(new[] { -1, -1, 0, 1, 1, 0 }));
+            // Console.WriteLine(PivotIndex(new[] { -1, -1, 0, 1, 1, 0 }));
+            FindDifference(new[] { 1, 2, 3 }, new[] { 2, 4, 6 }).ToList()
+                .ForEach(x => x.ToList().ForEach(Console.WriteLine));
+        }
+
+        private static IList<IList<int>> FindDifference(int[] nums1, int[] nums2)
+        {
+            IList<IList<int>> result = new List<IList<int>> { new List<int>(), new List<int>() };
+            
+            var hashNums1 = new HashSet<int>(nums1);
+            var hashNums2 = new HashSet<int>(nums2);
+            
+            foreach (var num in hashNums1.Where(num => !hashNums2.Contains(num)))
+            {
+                result[0].Add(num);
+            }
+            foreach (var num in hashNums2.Where(num => !hashNums1.Contains(num)))
+            {
+                result[1].Add(num);
+            }
+
+            return result;
         }
 
         private static int PivotIndex(int[] nums)
