@@ -42,24 +42,50 @@ namespace Leetcode
             // Console.WriteLine(PivotIndex(new[] { -1, -1, 0, 1, 1, 0 }));
             // FindDifference(new[] { 1, 2, 3 }, new[] { 2, 4, 6 }).ToList()
             //     .ForEach(x => x.ToList().ForEach(Console.WriteLine));
-            Console.WriteLine(UniqueOccurrences(new[] { -3, 0, 1, -3, 1, 1, 1, -3, 10, 0 }));
+            // Console.WriteLine(UniqueOccurrences(new[] { -3, 0, 1, -3, 1, 1, 1, -3, 10, 0 }));
+            Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
         }
 
-        private static bool UniqueOccurrences(int[] arr)
+        private static bool CloseStrings(string word1, string word2)
         {
-            var occurrences = new Dictionary<int, int>();
-            foreach (var num in arr)
+            if (word1.Length != word2.Length)
             {
-                if (occurrences.ContainsKey(num))
-                {
-                    occurrences[num]++;
-                    continue;
-                }
-
-                occurrences.Add(num, 1);
+                return false;
             }
 
-            return occurrences.Count == occurrences.Values.Distinct().Count();
+            var charCount1 = new int[26];
+            var charCount2 = new int[26];
+
+            foreach (var ch in word1)
+            {
+                charCount1[ch - 'a']++;
+            }
+
+            foreach (var ch in word2)
+            {
+                charCount2[ch - 'a']++;
+            }
+
+            for (var i = 0; i < 26; i++)
+            {
+                if ((charCount1[i] == 0) != (charCount2[i] == 0))
+                {
+                    return false;
+                }
+            }
+
+            Array.Sort(charCount1);
+            Array.Sort(charCount2);
+
+            for (var i = 0; i < 26; i++)
+            {
+                if (charCount1[i] != charCount2[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static IList<IList<int>> FindDifference(int[] nums1, int[] nums2)
