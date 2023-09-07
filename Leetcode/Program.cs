@@ -45,9 +45,66 @@ namespace Leetcode
             // Console.WriteLine(UniqueOccurrences(new[] { -3, 0, 1, -3, 1, 1, 1, -3, 10, 0 }));
             // Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
             // Console.WriteLine(EqualPairs(new[] { new[] { 11, 1 }, new[] { 1, 11 } }));
-            Console.WriteLine(RemoveStars("leet**cod*e"));
+            // Console.WriteLine(RemoveStars("leet**cod*e"));
+            AsteroidCollision(new[] { 1, -2, -2, -2 }).ToList().ForEach(Console.WriteLine);
         }
-        
+
+        private static int[] AsteroidCollision(int[] asteroids)
+        {
+            var result = new Stack<int>();
+            foreach (var asteroid in asteroids)
+            {
+                if (result.Count == 0)
+                {
+                    result.Push(asteroid);
+                    continue;
+                }
+
+                switch (result.Peek() > 0)
+                {
+                    case true when asteroid > 0:
+                        result.Push(asteroid);
+                        continue;
+                    case true:
+                    {
+                        var lastPop = 0;
+                        while (result.TryPeek(out var peek))
+                        {
+                            if (peek < 0)
+                            {
+                                result.Push(asteroid);
+                                break;
+                            }
+
+                            if (Math.Abs(asteroid) > peek)
+                            {
+                                result.Pop();
+                                continue;
+                            }
+                            if (Math.Abs(asteroid) == peek)
+                            {
+                                lastPop = result.Pop();
+                            }
+
+                            break;
+                        }
+
+                        if (result.Count == 0 && lastPop != Math.Abs(asteroid))
+                        {
+                            result.Push(asteroid);
+                        }
+
+                        continue;
+                    }
+                    default:
+                        result.Push(asteroid);
+                        continue;
+                }
+            }
+
+            return result.Reverse().ToArray();
+        }
+
         private static string RemoveStars(string s)
         {
             var result = new Stack<char>();
@@ -58,10 +115,10 @@ namespace Leetcode
                     result.Pop();
                     continue;
                 }
-                
+
                 result.Push(ch);
             }
-            
+
             return string.Join("", result.Reverse());
         }
 
