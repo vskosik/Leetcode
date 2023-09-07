@@ -43,7 +43,33 @@ namespace Leetcode
             // FindDifference(new[] { 1, 2, 3 }, new[] { 2, 4, 6 }).ToList()
             //     .ForEach(x => x.ToList().ForEach(Console.WriteLine));
             // Console.WriteLine(UniqueOccurrences(new[] { -3, 0, 1, -3, 1, 1, 1, -3, 10, 0 }));
-            Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
+            // Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
+            Console.WriteLine(EqualPairs(new[] { new[] { 11, 1 }, new[] { 1, 11 } }));
+        }
+
+        private static int EqualPairs(int[][] grid)
+        {
+            var count = 0;
+            var rows = new Dictionary<string, int>();
+
+            foreach (var row in grid)
+            {
+                var key = string.Join(",", row);
+                rows[key] = 1 + (rows.TryGetValue(key, out var qty) ? qty : 0);
+            }
+
+            for (var i = 0; i < grid.Length; i++)
+            {
+                var colArr = new int[grid.Length];
+                for (var j = 0; j < grid.Length; j++)
+                {
+                    colArr[j] = grid[j][i];
+                }
+
+                count += rows.TryGetValue(string.Join(",", colArr), out var qty) ? qty : 0;
+            }
+
+            return count;
         }
 
         private static bool CloseStrings(string word1, string word2)
