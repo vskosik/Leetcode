@@ -44,7 +44,25 @@ namespace Leetcode
             //     .ForEach(x => x.ToList().ForEach(Console.WriteLine));
             // Console.WriteLine(UniqueOccurrences(new[] { -3, 0, 1, -3, 1, 1, 1, -3, 10, 0 }));
             // Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
-            Console.WriteLine(EqualPairs(new[] { new[] { 11, 1 }, new[] { 1, 11 } }));
+            // Console.WriteLine(EqualPairs(new[] { new[] { 11, 1 }, new[] { 1, 11 } }));
+            Console.WriteLine(RemoveStars("leet**cod*e"));
+        }
+        
+        private static string RemoveStars(string s)
+        {
+            var result = new Stack<char>();
+            foreach (var ch in s)
+            {
+                if (ch == '*')
+                {
+                    result.Pop();
+                    continue;
+                }
+                
+                result.Push(ch);
+            }
+            
+            return string.Join("", result.Reverse());
         }
 
         private static int EqualPairs(int[][] grid)
