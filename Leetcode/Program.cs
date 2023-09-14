@@ -46,7 +46,52 @@ namespace Leetcode
             // Console.WriteLine(CloseStrings("abbzccca", "babzzczc"));
             // Console.WriteLine(EqualPairs(new[] { new[] { 11, 1 }, new[] { 1, 11 } }));
             // Console.WriteLine(RemoveStars("leet**cod*e"));
-            AsteroidCollision(new[] { 1, -2, -2, -2 }).ToList().ForEach(Console.WriteLine);
+            // AsteroidCollision(new[] { 1, -2, -2, -2 }).ToList().ForEach(Console.WriteLine);
+            Console.WriteLine(DecodeString("3[z]2[2[y]pq4[2[jk]e1[f]]]ef"));
+        }
+
+        private static string DecodeString(string s)
+        {
+            var repeat = 0;
+            var subStr = new StringBuilder(s.Length);
+            var subStack = new Stack<(int start, int repeat)>();
+
+            foreach(var c in s)
+            {
+                switch (c)
+                {
+                    case '[':
+                        subStack.Push((subStr.Length, repeat));
+                        repeat = 0;
+                        break;
+                    case ']':
+                    {
+                        var (start, times) = subStack.Pop();
+
+                        for(var length = subStr.Length - start; times > 1; times--)
+                        {
+                            subStr.Append(subStr, start, length);
+                        }
+
+                        break;
+                    }
+                    default:
+                    {
+                        if(char.IsDigit(c))
+                        {
+                            repeat = 10 * repeat + (c - '0');
+                        }
+                        else
+                        {
+                            subStr.Append(c);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            return subStr.ToString();
         }
 
         private static int[] AsteroidCollision(int[] asteroids)
@@ -81,6 +126,7 @@ namespace Leetcode
                                 result.Pop();
                                 continue;
                             }
+
                             if (Math.Abs(asteroid) == peek)
                             {
                                 lastPop = result.Pop();
